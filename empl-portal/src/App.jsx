@@ -1,10 +1,46 @@
 import { useEffect, useMemo, useState } from 'react';
+import { Routes, Route, Navigate } from "react-router-dom";
+
+// HR-экран (старый контент)
 import Header from './components/Header.jsx';
 import Sidebar from './components/Sidebar.jsx';
 import PositionCard from './components/PositionCard.jsx';
 import * as api from './services/positionsApi.js';
 
+// Employee-раздел
+import EmployeeLayout   from "./employee/EmployeeLayout.jsx";
+import EmployeeProfile  from "./employee/pages/Profile.jsx";
+import EmployeeLevel    from "./employee/pages/Level.jsx";
+import EmployeeChatAI   from "./employee/pages/ChatAI.jsx";
+import EmployeeSettings from "./employee/pages/Settings.jsx";
+
+// ====== ГЛАВНЫЙ КОМПОНЕНТ С РОУТАМИ ======
 export default function App() {
+  return (
+    <Routes>
+      {/* хотим по умолчанию открывать employee */}
+      <Route path="/" element={<Navigate to="/employee" replace />} />
+
+      {/* Employee */}
+      <Route path="/employee" element={<EmployeeLayout />}>
+        <Route index element={<Navigate to="profile" replace />} />
+        <Route path="profile" element={<EmployeeProfile />} />
+        <Route path="level" element={<EmployeeLevel />} />
+        <Route path="chat" element={<EmployeeChatAI />} />
+        <Route path="settings" element={<EmployeeSettings />} />
+      </Route>
+
+      {/* HR (твой старый экран — по желанию) */}
+      <Route path="/hr" element={<HRDashboard />} />
+
+      {/* фоллбек */}
+      <Route path="*" element={<Navigate to="/employee" replace />} />
+    </Routes>
+  );
+}
+
+// ====== Вынесенный старый контент HR ======
+function HRDashboard() {
   const [positions, setPositions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState('');
@@ -72,7 +108,6 @@ export default function App() {
         <section className="section">
           <div className="section-head">
             <h2>Позиции</h2>
-
           </div>
 
           {loading && <div className="skeleton-list">Загрузка...</div>}
@@ -89,13 +124,13 @@ export default function App() {
               {filtered
                 .sort((a, b) => Number(b.pinned) - Number(a.pinned))
                 .map(p => (
-                <PositionCard
-                  key={p.id}
-                  data={p}
-                  onDelete={() => handleDelete(p.id)}
-                  onTogglePin={() => handleTogglePin(p.id)}
-                />
-              ))}
+                  <PositionCard
+                    key={p.id}
+                    data={p}
+                    onDelete={() => handleDelete(p.id)}
+                    onTogglePin={() => handleTogglePin(p.id)}
+                  />
+                ))}
             </div>
           )}
         </section>
