@@ -1,4 +1,4 @@
-// frontend/script.js
+// frontend/hr/sscript.js
 document.getElementById('getDataBtn').addEventListener('click', fetchData);
 
 async function fetchData() {
