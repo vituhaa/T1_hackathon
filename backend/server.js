@@ -8,16 +8,22 @@ const port = 5000;
 app.use(cors());
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, '../frontend')));
-app.get('/hr', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/hr/index.html'));
-});
-app.get('/employee', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/employee/index.html'));
+app.get('/api/message', (req, res) => {
+  res.json({ message: 'Привет от сервера! Данные получены!' });
 });
 
-app.get('/api/message', (req, res) => {res.json({ message: 'Привет от сервера! Данные получены!' });});
+app.use('/hr', express.static(path.join(__dirname, '../hr-portal/dist')));
+//app.use('/employee', express.static(path.join(__dirname, '../employee-portal/dist')));
 
-app.listen(port, () => {console.log(`Сервер запущен на http://localhost:${port}`);
-                        console.log(`HR панель: http://localhost:${port}/hr`);
-                        console.log(`Employee панель: http://localhost:${port}/employee`);});
+app.use('/hr', (req, res) => {
+  res.sendFile(path.join(__dirname, '../hr-portal/dist/index.html'));
+});
+
+// app.use('/employee', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../employee-portal/dist/index.html'));
+// });
+
+app.listen(port, () => {
+  console.log(`HR панель: http://localhost:${port}/hr`);
+  //console.log(`Employee панель: http://localhost:${port}/employee`);
+});
