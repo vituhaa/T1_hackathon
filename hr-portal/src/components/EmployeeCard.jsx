@@ -1,6 +1,6 @@
+import { useState } from 'react';
 export default function EmployeeCard({ data, onViewDetails }) {
   const { name, position, department, experience, skills = [] } = data;
-
   const getInitials = (fullName) => {
     return fullName
       .split(' ')
