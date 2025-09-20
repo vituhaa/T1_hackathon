@@ -1,3 +1,9 @@
+import sys
+from pathlib import Path
+
+project_root = Path(__file__).parent
+sys.path.append(str(project_root))
+
 from dbconnect import get_connection
 
 """CREATE TABLE Employees (
@@ -31,7 +37,14 @@ def get_employee(employee_id):
     conn.close()
     return result
 
-
+def get_all_employees():
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT id FROM Employees")
+    result = [row[0] for row in cursor.fetchall()]
+    cursor.close()
+    conn.close()
+    return result
 
 
 
