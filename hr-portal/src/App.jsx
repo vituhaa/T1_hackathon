@@ -3,12 +3,14 @@ import Header from './components/Header.jsx';
 import Sidebar from './components/Sidebar.jsx';
 import PositionCard from './components/PositionCard.jsx';
 import * as api from './services/positionsApi.js';
+import AddPositionModal from './components/AddPositionModal.jsx';
 
 export default function App() {
   const [positions, setPositions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState('');
   const [onlyActive, setOnlyActive] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
 
   useEffect(() => {
     let ignore = false;
@@ -43,20 +45,13 @@ export default function App() {
     setPositions(prev => prev.map(p => p.id === id ? { ...p, pinned: !p.pinned } : p));
   };
 
-  const handleAdd = () => {
-    const id = crypto.randomUUID();
-    setPositions(prev => [
-      {
-        id,
-        title: `Новая позиция ${prev.length + 1}`,
-        status: 'draft',
-        candidates: 0,
-        tags: ['черновик'],
-        pinned: false,
-      },
-      ...prev
-    ]);
+  const handleSavePosition = async (newItem) => {
+  // Здесь можно вызвать API: await api.create(newItem)
+  setPositions(prev => [newItem, ...prev]);
   };
+
+  const handleOpenAdd = () => setShowAddModal(true);
+  const handleCloseAdd = () => setShowAddModal(false);
 
   return (
     <div className="app">
@@ -100,7 +95,12 @@ export default function App() {
           )}
         </section>
 
-        <button className="fab" title="Добавить позицию" onClick={handleAdd}>+</button>
+        <button className="fab" title="Добавить позицию" onClick={handleOpenAdd}>+</button>
+            <AddPositionModal
+            open={showAddModal}
+            onClose={handleCloseAdd}
+            onSave={handleSavePosition}
+        />
       </main>
     </div>
   );
