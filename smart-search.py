@@ -12,7 +12,7 @@ from openai import OpenAI
 class EmployeeVectorSearch:
     def __init__(self):
         self.openAI = OpenAI(api_key="sk-qAVtgeSNioNomveOtt17ZQ", base_url="https://llm.t1v.scibox.tech/v1")
-        # Инициализируем Chroma DB
+
         self.client = chromadb.CloudClient(
   api_key='ck-4ZFsyeB8oj5ENE2XW9djHrCuvPvLD5kq3Ljrk32J5bFh',
   tenant='16c8626a-7b9d-41ed-a0df-2c64504e4689',

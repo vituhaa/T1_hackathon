@@ -3,7 +3,7 @@ import Modal from './Modal.jsx';
 
 export default function AddPositionModal({ open, onClose, onSave }) {
   const [title, setTitle] = useState('');
-  const [desc, setDesc] = useState('');
+  const [desc, setDesc] = useState(''); // Отдельное состояние для описания
   const [status, setStatus] = useState('open');
   const [tags, setTags] = useState('');
   const [candidates, setCandidates] = useState(0);
@@ -11,7 +11,7 @@ export default function AddPositionModal({ open, onClose, onSave }) {
 
   const reset = () => {
     setTitle('');
-    setDesc('');
+    setDesc(''); // Сброс описания
     setStatus('open');
     setTags('');
     setCandidates(0);
@@ -25,6 +25,7 @@ export default function AddPositionModal({ open, onClose, onSave }) {
       const data = {
         id: crypto.randomUUID(),
         title: title.trim(),
+        desc: desc.trim(), // Добавляем описание в данные
         status,
         candidates: Number(candidates) || 0,
         tags: tags
@@ -60,9 +61,8 @@ export default function AddPositionModal({ open, onClose, onSave }) {
           <input
             className="input"
             placeholder="Обозначьте суть работы и обязанности сотрудника"
-            value={title}
-            onChange={(e) => setDesc(e.target.value)}
-            required
+            value={desc} // Исправлено: используем состояние desc
+            onChange={(e) => setDesc(e.target.value)} // Исправлено: обновляем desc
           />
         </div>
 
