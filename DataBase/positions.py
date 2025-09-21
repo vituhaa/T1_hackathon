@@ -42,4 +42,3 @@ def close_position(id):
     cursor.close()
     conn.close()
 
-

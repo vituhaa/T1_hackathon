@@ -3,11 +3,10 @@ from DataBase.skills_to_employees import get_all_skills_employee
 from DataBase.employees import get_all_employees
 from DataBase.position_mathces import *
 
-# import sys
-# from pathlib import Path
+import sys
+import os
 
-# project_root = Path(__file__).parent
-# sys.path.append(str(project_root))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 level_weights = {
     "beginner": 1,

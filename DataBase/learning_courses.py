@@ -36,3 +36,4 @@ def get_courses_ids_by_skill_id(skill_id):
     conn.close()
     return result
 
+

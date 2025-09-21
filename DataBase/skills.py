@@ -70,3 +70,4 @@ def get_all_skills():
     cursor.close()
     conn.close()
     return result
+
