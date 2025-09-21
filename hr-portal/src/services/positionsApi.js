@@ -38,3 +38,21 @@ export async function list() {
 
   return new Promise((res) => setTimeout(() => res(demo), 400));
 }
+
+const API_URL = "http://localhost:5000/api";
+
+export async function getHello() {
+  const res = await fetch(`${API_URL}/hello`);
+  return res.json();
+}
+
+export async function getPositionInfo(pos_id) {
+  const res = await fetch(`${API_URL}/position_card/${pos_id}`);
+  return res.json();
+}
+
+export async function getPositions() {
+  const res = await fetch(`${API_URL}/positions`);
+  return res.json();
+}
+

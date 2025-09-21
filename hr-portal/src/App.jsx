@@ -18,7 +18,7 @@ export default function App() {
     if (activeTab === 'positions') {
       let ignore = false;
       setLoading(true);
-      api.list().then((data) => {
+      api.getPositions().then((data) => {
         if (!ignore) {
           setPositions(data);
           setLoading(false);
@@ -35,8 +35,8 @@ export default function App() {
     if (query.trim()) {
       const q = query.toLowerCase();
       items = items.filter(p =>
-        p.title.toLowerCase().includes(q) ||
-        (p.tags || []).some(t => t.toLowerCase().includes(q))
+        p.name.toLowerCase().includes(q) ||
+        (p.skills || []).some(t => t.toLowerCase().includes(q))
       );
     }
     if (onlyActive) items = items.filter(p => p.status === 'open');

@@ -11,8 +11,8 @@ import datetime
 def get_connection():
     return mysql.connector.connect(
         host="localhost",
-        user="root",        # твой пользователь
-        password="skdfkFE4320-PDK74k_=djfuJDjfk", # твой пароль
+        user="pyuser",        # твой пользователь
+        password="mypassword", # твой пароль
         database="hacaton"     # твоя база
     )
 

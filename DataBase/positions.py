@@ -25,7 +25,7 @@ def create_position(name,description):
     cursor.close()
     conn.close()
 
-def get_all_positions(is_closed=True):
+def get_all_positions(is_closed=False):
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
     cursor.execute("SELECT * FROM Positions WHERE is_closed = %s", (is_closed,))
@@ -42,3 +42,11 @@ def close_position(id):
     cursor.close()
     conn.close()
 
+def get_pos_by_id(id):
+    conn = get_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM Positions WHERE id = %s", (id,))
+    result = cursor.fetchone()
+    cursor.close()
+    conn.close()
+    return result

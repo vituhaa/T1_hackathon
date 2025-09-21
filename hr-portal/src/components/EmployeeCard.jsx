@@ -1,6 +1,6 @@
 import { useState } from 'react';
 export default function EmployeeCard({ data, onViewDetails }) {
-  const { name, position, department, experience, skills = [] } = data;
+  const { name, skills = [] } = data;
   const getInitials = (fullName) => {
     return fullName
       .split(' ')
@@ -23,16 +23,16 @@ export default function EmployeeCard({ data, onViewDetails }) {
           <span>{name}</span>
         </div>
         <div className="card-sub">
-          <span className="position">{position}</span>
-          {department && <span className="muted">{department}</span>}
-          {experience && <span className="muted">Опыт: {experience} лет</span>}
           {skills.length > 0 && (
-            <span className="tags">
-              {skills.map((skill, i) => (
-                <span className="tag" key={i}>{skill}</span>
+          <span className="tags">
+            {skills.map((skill, i) => (
+              <span className="tag" key={i}>
+                {skill.name} ({skill.level})
+              </span>
               ))}
             </span>
           )}
+
         </div>
       </div>
 

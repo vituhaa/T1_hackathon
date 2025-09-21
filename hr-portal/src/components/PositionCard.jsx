@@ -1,28 +1,45 @@
 import { useState } from 'react';
 import EmployeeCard from './EmployeeCard';
+import { getPositionInfo } from '../services/positionsApi';
 export default function PositionCard({ data, onDelete, onTogglePin }) {
-  const { title, candidates = 0, status = 'open', tags = [], pinned } = data;
+  const { id, name, description, created_at, is_closed, skills = [], pinned } = data;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [position, setPosition] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleOpen = () => setIsModalOpen(true);
+  const handleOpen = async () => {
+    setIsModalOpen(true);
+    setLoading(true);
+    setError(null);
+
+    try {
+      const pos = await getPositionInfo(id);
+      setPosition(pos);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
   const handleClose = () => setIsModalOpen(false);
 
   return (
     <>
     <article className="card">
       <div className="card-left">
-        <div className={`status-dot ${status}`} />
+        <div className={`status-dot ${is_closed}`} />
       </div>
 
       <div className="card-main">
         <div className="card-title">
-          <span>{title}</span>
+          <span>{name}</span>
           {pinned && <span className="pin">★</span>}
         </div>
         <div className="card-sub">
-          <span className="muted">Кандидатов: {candidates}</span>
+          {/* <span className="muted">Кандидатов: {candidates}</span> */}
           <span className="tags">
-            {tags.map((t, i) => <span className="tag" key={i}>{t}</span>)}
+            {skills.map((t, i) => <span className="tag" key={i}>{t.name}</span>)}
           </span>
         </div>
       </div>
@@ -40,30 +57,37 @@ export default function PositionCard({ data, onDelete, onTogglePin }) {
         <div className="modal-overlay">
           <div className="modal">
             <div className="modal-header">
-              <h2>{title}</h2>
+              <h2>{name}</h2>
               <button className="modal-close" onClick={handleClose}>×</button>
             </div>
             <div className="modal-content">
-              <p>Здесь будет содержимое позиции</p>
+              {/* <p>Здесь будет содержимое позиции</p> */}
+              {loading && <p>Загрузка...</p>}
+              {position && (
+                <>
+                  <p><strong>Описание:</strong> {position.description}</p>
+                  <p><strong>Создано</strong> {position.created_at}</p>
+                </>
+              )}
               <div className="employee-section">
           <h3 style={{marginLeft: '8px', marginBottom: '12px', fontSize: '16px', fontWeight: '600'}}>
-            Ответственный сотрудник
+            Подходящие сотрудники
           </h3>
-          <EmployeeCard 
-            data={{
-              name: "Иванов Иван",
-              position: "Senior Recruiter",
-              department: "HR отдел",
-              experience: 5,
-              skills: ["Подбор", "Собеседование", "Onboarding"]
-            }}
-            onViewDetails={() => console.log("View employee details")}
+          {Array.isArray(position?.employees) && position.employees.length > 0 ? (
+            position.employees.map(emp => (
+            <EmployeeCard
+              key={emp.id}
+              data={emp}
+              onViewDetails={() => console.log("View employee", emp.id)}
           />
+        ))
+        ) : (
+        <p>Нет сотрудников</p>)}
         </div>
             </div>
-            <div className="modal-footer">
+            {/* <div className="modal-footer">
               <button className="btn" onClick={handleClose}>Закрыть</button>
-            </div>
+            </div> */}
           </div>
         </div>
       )}
