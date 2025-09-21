@@ -1,0 +1,61 @@
+/* каркас */
+.emp-shell { display:flex; min-height:100vh; background:#f6f7fb; }
+.emp-sidebar { width:240px; padding:24px 16px; background:#fff; border-right:1px solid #eceff3; position:sticky; top:0; height:100vh; }
+.emp-sidebar__title { font-weight:700; font-size:18px; margin-bottom:12px; }
+.emp-nav { display:flex; flex-direction:column; gap:8px; }
+.emp-nav__item { padding:10px 12px; border-radius:12px; text-decoration:none; color:#1f2937; }
+.emp-nav__item:hover { background:#f1f5f9; }
+.emp-nav__item.is-active { background:#e8f0ff; color:#1e40af; font-weight:600; }
+
+.emp-main { flex:1; padding:28px; }
+
+/* профиль */
+.back-btn { border:none; background:#e6f0ff; color:#1e3a8a; border-radius:50%; width:36px; height:36px; font-size:18px; cursor:pointer; }
+.profile__header { display:flex; gap:24px; margin-top:16px; align-items:flex-end; }
+.profile__avatar { width:120px; height:120px; border-radius:50%; background:linear-gradient(180deg,#f7f7f7,#eaeaea); border:1px solid #e5e7eb; }
+.profile__meter { width:60px; height:120px; border-radius:28px; background:#f0f0f0; padding:6px; box-shadow: inset 0 1px 2px rgba(0,0,0,.06); display:flex; align-items:flex-end; }
+.profile__meter-fill { width:100%; background:#34d399; border-radius:22px; height:0; transition:height .3s; }
+.profile__name { margin:16px 0 8px; font-size:28px; font-weight:800; }
+.profile__caption { color:#16a34a; font-weight:600; margin-bottom:12px; }
+
+.profile-card { background:#fff; border:1px solid #e5e7eb; border-radius:16px; padding:16px; margin-top:12px; }
+.profile-card__head { display:flex; gap:12px; align-items:center; font-weight:700; margin-bottom:8px; }
+.profile-card__body { position:relative; padding-right:120px; }
+.link { color:#2563eb; background:none; border:none; cursor:pointer; position:absolute; right:0; top:0; }
+.link-success { color:#16a34a; text-decoration:none; font-weight:600; }
+.muted { color:#6b7280; font-size:12px; margin-top:6px; }
+.list { margin:8px 0; padding-left:18px; }
+.tags { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+.tags li { background:#eef2ff; color:#3730a3; border:1px solid #e0e7ff; padding:6px 10px; border-radius:999px; font-size:12px; }
+
+/* уровень */
+.level__badge { display:flex; justify-content:center; margin:16px 0 8px; }
+.level__badge-circle { width:80px; height:80px; border-radius:50%; background:#fde68a; display:flex; align-items:center; justify-content:center; font-weight:800; }
+.level__name { text-align:center; margin:8px 0 16px; }
+.level__progress { display:flex; align-items:center; gap:12px; justify-content:center; }
+.level__progress-bar { width:240px; height:10px; background:#e5e7eb; border-radius:999px; overflow:hidden; }
+.level__progress-fill { height:100%; background:#22c55e; }
+.level__progress-next { color:#6b7280; }
+.level__tabs { display:flex; align-items:center; gap:12px; justify-content:center; margin:14px 0; }
+.level__divider { height:1px; background:#e5e7eb; flex:1; max-width:160px; }
+.level__grid { display:grid; grid-template-columns: 1fr 1fr; gap:16px; align-items:start; }
+.level__bubble { background:#fff; border:1px solid #e5e7eb; border-radius:16px; padding:16px; text-align:center; }
+.level__ladder { display:flex; flex-direction:column; gap:10px; align-items:center; }
+.chip { padding:8px 14px; border-radius:12px; border:1px solid #e5e7eb; }
+.chip--ghost { background:#f9fafb; }
+.chip--success { background:#d1fae5; border-color:#bbf7d0; }
+.chip--dashed { border:2px dashed #d1d5db; background:#fff; }
+
+/* чат */
+.chat { max-width:900px; margin:0 auto; height:calc(100vh - 120px); display:flex; flex-direction:column; }
+.chat__header { text-align:center; font-weight:800; font-size:20px; margin-bottom:8px; }
+.chat__messages { flex:1; overflow:auto; padding:8px 4px; display:flex; flex-direction:column; gap:8px; }
+.bubble { max-width:72%; padding:10px 14px; border-radius:18px; line-height:1.35; white-space:pre-wrap; }
+.bubble--user { align-self:flex-end; background:#dbeafe; border:1px solid #bfdbfe; }
+.bubble--assistant { align-self:flex-start; background:#f3f4f6; border:1px solid #e5e7eb; }
+.chat__composer { display:flex; gap:8px; padding-top:8px; border-top:1px solid #e5e7eb; background:#fff; }
+.chat__input { flex:1; resize:none; border:1px solid #e5e7eb; border-radius:12px; padding:12px 14px; font:inherit; background:#fff; }
+.chat__send { padding:0 16px; border:none; border-radius:12px; background:#2563eb; color:#fff; font-weight:600; cursor:pointer; }
+
+/* настройки */
+.settings h1 { margin-bottom:8px; }
